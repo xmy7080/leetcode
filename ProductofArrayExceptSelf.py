@@ -1,0 +1,37 @@
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        #inplace solution
+        res = [1]*len(nums)
+        mul = 1
+        for i in xrange(len(nums)-1):
+            mul *= nums[i]
+            res[i] = mul
+        mul = 1
+        for i in xrange(len(nums)-1,-1,-1):
+            if i == 0:
+                res[i] = mul
+            else:
+                res[i] = res[i-1]*mul
+            mul *= nums[i]
+        return res
+        
+        
+        # not in place solution
+        # prodbef, prodaft = [1]*len(nums), [1]*len(nums)
+        # mul, mulrev = 1, 1
+        # for i in xrange(len(nums)-1):
+        #     mul *= nums[i]
+        #     prodbef[i] = mul
+        # for i in xrange(len(nums)-1,0,-1):
+        #     mulrev *= nums[i]
+        #     prodaft[i] = mulrev
+        # res = [1]*len(nums)
+        # for i in xrange(len(nums)):
+        #     bef = prodbef[i-1] if i-1>=0 else 1
+        #     aft = prodaft[i+1] if i+1<len(nums) else 1
+        #     res[i] = bef * aft
+        # return res
