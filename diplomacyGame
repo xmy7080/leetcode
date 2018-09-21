@@ -1,0 +1,68 @@
+# class Army(object):
+#     def __init__(self, name, move, )
+def battle(self):
+strength = {}
+location = {}
+input = [
+"A,Paris,move,London",
+"B,London,hold",
+"C,Turin,move,London",
+"D,Rome,support,C",
+"E,Madrid,support,C",
+"F,Lyon,hold",
+"G,Monaco,move,Madrid"
+]
+
+#get move relationship
+for i in xrange(len(input)):
+    army = input[i].split(',')
+    name, originLoc, move = army[0], army[1], army[2]
+    strength[name] = 1
+
+    if move == "hold" or move == "support":
+        if originLoc in location.keys():
+            location.get(originLoc).append(name)
+        else:
+            location[originLoc] = [name]
+    else:
+        newLoc = army[3]
+        if newLoc in location.keys():
+            location.get(newLoc).append(name)
+        else:
+            location[newLoc] = [name]
+
+#adjust strength by counting support
+for i in xrange(len(input)):
+    army = input[i].split(',')
+    name, originLoc, move = army[0], army[1], army[2]
+    if move == "support" and len(location.get(originLoc)) == 1:
+        supportName = army[3]
+        strength[supportName] += 1
+
+for k in location.keys():
+    armys = location.get(k)
+    biggest = 0
+    winner = ""
+    for name in armys:
+        biggest = max(strength.get(name), biggest)
+        if strength.get(name) == biggest:
+            winner = name
+
+    biggestTime = 0
+    for name in armys:
+        if biggest == strength.get(name):
+            biggestTime += 1
+    for name in armys:
+            strength[name] = 0
+
+    if biggestTime == 1: #one army win
+        strength[winner] = 1
+    #else is case that all army dies, do nothing
+
+return strength
+# #adjust strength by counting support
+# for i in xrange(len(input)):
+#     army = input[i].split(',')
+#     name, originLoc, move = army[0], army[1], army[2]
+
+                    
