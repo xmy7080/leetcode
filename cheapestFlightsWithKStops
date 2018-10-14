@@ -1,0 +1,40 @@
+import collections
+class Solution(object):
+    def findCheapestPrice(self, n, flights, src, dst, K):
+        """
+        :type n: int
+        :type flights: List[List[int]]
+        :type src: int
+        :type dst: int
+        :type K: int
+        :rtype: int
+        """
+        flightDict = collections.defaultdict(dict)#dictionary of src -> (dst, price)
+        #{src: {dst -> price} for (src, dst, price) in flights}  
+        for (a, b, p) in flights:
+            flightDict[a].update({b : p})
+        reachablePrice = {src: 0} # dictionary of loc -> current step price (starting with src -> 0)
+        
+        #each step update reachablePrice map with lower price to that location,
+        visited = set([src])
+        nextVisited = set()
+        while K >= 0:
+            tmpPrice = dict(reachablePrice)
+            for city in visited:
+                basePrice = reachablePrice[city]
+                for desti in flightDict[city].keys():
+                    if desti in tmpPrice:
+                        tmpPrice[desti] = min(tmpPrice[desti], basePrice + flightDict[city][desti])
+                    else:
+                        tmpPrice[desti] = basePrice + flightDict[city][desti]
+                    nextVisited.add(desti)
+            visited = nextVisited
+            nextVisited = set()
+            reachablePrice = tmpPrice
+            K -= 1
+        
+        if dst in reachablePrice:
+            return reachablePrice[dst] 
+        else: 
+            return -1
+        
