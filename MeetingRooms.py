@@ -4,6 +4,33 @@
 #         self.start = s
 #         self.end = e
 
+#====another approach, two pointers====
+class Solution(object):
+    def canAttendMeetings(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: bool
+        """
+        if len(intervals) == 0:
+            return True
+        transp = map(list, zip(*intervals))
+        starts, ends = sorted(transp[0]), sorted(transp[1])
+        s, e = 0, 0
+        overlap = 0
+        while s < len(intervals) and e < len(intervals):
+            if starts[s] < ends[e]:
+                overlap += 1
+                s += 1
+            else:
+                overlap -= 1
+                e += 1
+            if overlap >1:
+                return False
+        return True
+        
+        
+        #=====N^2 approach, too slow===
+        
 class Solution(object):
     def canAttendMeetings(self, intervals):
         """
