@@ -1,3 +1,6 @@
+# collection.deque are a doule-linked list based queue, which have O(1) of append, prepend, pop and popleft
+# so in this case, we combine it with a dictionary, which saved the mapping information between key and value.
+# and deque serves as a record of which been access most recent (last one in the queue) vs least recent (first one in the queue)
 class LRUCache(object):
     def __init__(self, capacity):
         self.q = collections.deque()
