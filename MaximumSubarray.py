@@ -1,3 +1,16 @@
+#====convention way of using dp, O(n) time and O(n) space====
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        ans = [nums[0]] + [0] * (len(nums)-1)
+        for i in xrange(1, len(nums)):
+            ans[i] = max(nums[i], ans[i-1] + nums[i])
+        return max(ans)
+
+#====here is O(n) time and O(1) space approach, collapse the dp array into one variable===
 class Solution(object):
     def maxSubArray(self, nums):
         """
