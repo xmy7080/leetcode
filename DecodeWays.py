@@ -1,3 +1,25 @@
+#put all possibilities in a set, and check if the digit(s) can form a letter==
+class Solution(object):
+    s = set()
+    def numDecodings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        for i in xrange(1, 27):
+            self.s.add(str(i) )
+        ans = [0] * (len(s)+1)
+        ans[0] = 1
+        for i in xrange(1, len(s)+1):
+            onedigit, twodigit = 0, 0
+            if s[i-1] in self.s:
+                onedigit = ans[i-1]
+            if i-2 >= 0 and s[i-2:i] in self.s:
+                twodigit = ans[i-2]
+            ans[i] = onedigit + twodigit
+        
+        return ans[len(s)]
+#======complex way to determine if digits(s) can form a letter====
 class Solution(object):
     def numDecodings(self, s):
         """
