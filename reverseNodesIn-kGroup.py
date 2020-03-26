@@ -1,6 +1,6 @@
 #leetcode solution, my submission is pretty much the same
 #note that we have a reverse linked list helper upfront, which only use two pointer to do the job (new_head and ptr)
-
+#https://leetcode.com/articles/reverse-nodes-in-k-group/
 class Solution:
     
     def reverseLinkedList(self, head, k):
