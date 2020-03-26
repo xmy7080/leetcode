@@ -1,3 +1,59 @@
+#way easier to memorize way of iterative reverse with two pointers, inspired by reverse node in k group===
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def reverseHelper(self, head, k):
+        newHead, ptr = None, head
+        while k and ptr:
+            nextNode = ptr.next
+            
+            ptr.next = newHead
+            newHead = ptr
+            
+            ptr = nextNode
+            k -= 1
+        return newHead
+
+    def reverseBetween(self, head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        """
+        newHead = ListNode(0)
+        newHead.next = head
+        #if m == 1, we gonna reverse it from the head
+        before = newHead if m == 1 else None
+        ptr = head
+        
+        while n > 0 and ptr:
+            m -= 1
+            n -= 1
+            if m == 1 and not before:
+                #before is one node ahead of reversed part
+                before = ptr
+            if m == 0:
+                #start is the first node of reversed part
+                start = ptr
+            
+            #on case n == 0, ptr already become the node after reverse part
+            ptr = ptr.next
+            if n == 0:
+                #before is one node ahead of reversed part, hence its next equals rev head
+                before.next = self.reverseHelper(start, n + 1 -m)
+                #start will become the tail of reveresed part
+                start.next = ptr
+        
+        return newHead.next
+
+
+
+##################
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, x):
