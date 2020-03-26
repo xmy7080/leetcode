@@ -1,3 +1,23 @@
+#iterative way of doing this, inspired by reverse nodes in k group
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        #try to do it iterative way
+        newHead, ptr = None, head
+        while ptr:
+            nextNode = ptr.next
+            
+            ptr.next = newHead
+            newHead = ptr
+            
+            ptr = nextNode
+        return newHead
+        
+
+
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, x):
