@@ -1,49 +1,42 @@
+#simpler sliding window implement from leetcode solution
+#https://leetcode.com/articles/longest-substring-without-repeating-characters/
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
         :type s: str
         :rtype: int
         """
-        res = 0
+        lth = len(s)
         l, r = 0, 0
-        check = set()
-        isover = False
-        while r<len(s):
-            if s[r] not in check:#when input will not broken condition, add it in
-                check.add(s[r])
+        save = set()
+        ans = 0
+        while l < lth and r < lth:
+            if s[r] not in save:
+                save.add(s[r])
                 r += 1
-            else:#when meet dup
-                isover = True
-            while isover and s[l] != s[r]:
-                check.remove(s[l])
+                ans = max(ans, r -l)
+            else:
+                save.remove(s[l])
                 l += 1
-            res = max(res, r-l)
-            if r<len(s) and s[l] == s[r]:
-                isover = False
-                l+= 1
-                r += 1
-        # res = max(res, r-l)
-        return res
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        return ans
+#sliding window optimized way, using hashmap to store when did curr char last appear, leetcode solution====
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        lth = len(s)
+        hmap = {}
+        ans = 0
+        i = 0
+        for j in xrange(0, lth):
+            if s[j] in hmap:
+                i = max(i, hmap[s[j]] + 1)
+            ans = max(ans, j -i + 1)
+            hmap[s[j]] = j
+        return ans
+=================
         # if not s: return 0
         # save = set()
         # l, r, maxl = 0,0,0
@@ -62,21 +55,7 @@ class Solution(object):
         #     r+=1
         # maxl = max(maxl, r-l)
         # return maxl
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+================
         
         # if(s==null||s.length()==0) return 0;
         # Set<Character> set = new HashSet<Character>();
