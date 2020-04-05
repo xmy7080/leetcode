@@ -48,5 +48,6 @@ class Solution:
                 if i - limit -1 >= 0:
                     dp[i][j] -= sm[i - limit - 1][cost[i] + j]
                 sm[i][j] += dp[i][j]
+                #until now, sm[i][j] = dp[0][j] + ... dp[i][j]
         
         return sum(dp[n])
