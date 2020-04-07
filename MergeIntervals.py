@@ -1,3 +1,31 @@
+#======boxed the isOverlap and merge function together, to make reasoning easier=====
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        def isOverlap(A, B):
+            return not (A[0] > B[1] or A[1] < B[0])
+        def merge(A, B):
+            return [min(A[0], B[0]), max(A[1], B[1])]
+        
+        if not intervals:
+            return []
+        intervals.sort(key = lambda x: (x[0]))
+        ans = []
+        l = len(intervals)
+        i = 0
+        while i < l:
+            j = i+1
+            tmp = intervals[i]
+            while j < l and isOverlap(tmp, intervals[j]):
+                tmp = merge(tmp, intervals[j])
+                j += 1
+            ans.append(tmp)
+            i = j
+        return ans
+#================
 # Definition for an interval.
 # class Interval(object):
 #     def __init__(self, s=0, e=0):
