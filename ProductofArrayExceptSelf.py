@@ -1,3 +1,23 @@
+#=====most neat and concise approach, O(n) time and also in place space
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        if not nums: return []
+        lth = len(nums)
+        ans = [1] * lth
+        p = 1
+        for i in xrange(1,lth):
+            p *= nums[i-1]
+            ans[i] *= p
+        p = 1
+        for i in xrange(lth-2, -1, -1):
+            p *= nums[i+1]
+            ans[i] *= p
+        return ans
+#=====
 class Solution(object):
     def productExceptSelf(self, nums):
         """
