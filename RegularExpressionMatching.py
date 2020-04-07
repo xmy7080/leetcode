@@ -1,3 +1,51 @@
+#jiuzhang dp lesson 6, before rolling array===
+class Solution:
+    # "aab" ->   "aa"  + "b"
+    # "c*a*b"-> "c*a*" + "b"
+    #case 1 when b[n-1] == a[m-1] or b[n-1] == '.', it stands true only if a[0~ m-2] matches b[0~ n-2]
+    #dp[i][j] = dp[i-1][j-1]
+    
+    # "aa" ->   "a"  + "a"
+    # "c*a*"-> "c*"  + "a*"
+    #case 2 when b[n-1] == '*', check b[n-2] altogether, here b[n-2] == a[m-1] (or it could be b[n-2] == '.'), 
+    #it stands true only if a[0 ~ m-2] matches b[0 ~ n-1]
+    #dp[i][j] = dp[i-1][j]
+    
+    # "ab" ->   "ab"  + ""
+    # "c*ba*"-> "c*b"  + "a*"
+    #case 3 when b[n-1] == '*' and a[m-1] != b[n-2], hence we forfeit this star pair, it stands only if a[0~ m-1] matches b[0~ n-3]
+    #dp[i][j] = dp[i][j-2]
+    
+    """
+    @param s: A string 
+    @param p: A string includes "." and "*"
+    @return: A boolean
+    """
+    def isMatch(self, s, p):
+        ls, lp = len(s), len(p)
+        if not lp: return False
+        #dp[0-ls][0-lp]
+        dp = [[False] * (lp+1) for _ in xrange(ls+1)]
+        
+        for i in xrange(ls+1):
+            for j in xrange(lp+1):
+                if not i and not j:
+                    dp[i][j] = True
+                    continue
+                if not j:
+                    dp[i][j] = False
+                    continue
+                if p[j-1] != '*':
+                    if i > 0 and p[j-1] in ('.', s[i-1]):
+                        dp[i][j] = dp[i-1][j-1]
+                else:
+                    if j > 1:
+                        dp[i][j] = dp[i][j-2]
+                    if i > 0 and j >1 and p[j-2] in ('.', s[i-1]):
+                        dp[i][j] = dp[i][j] or dp[i-1][j]
+        
+        return dp[ls][lp]
+                
 #===leetcode solution, second dp approach
 #https://leetcode.com/articles/regular-expression-matching/
 class Solution(object):
