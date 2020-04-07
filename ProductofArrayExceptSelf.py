@@ -5,6 +5,11 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        # totalProduct = 1
+        # for a in A:
+        #     totalProduct *= a
+        #totalProduct == 0 if [2,3,4,0, 5,6]
+        # 2*3*4   5*6
         if not nums: return []
         lth = len(nums)
         ans = [1] * lth
