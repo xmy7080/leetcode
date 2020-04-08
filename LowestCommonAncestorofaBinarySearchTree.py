@@ -20,7 +20,19 @@ class Solution(object):
             if a>root.val:
                 root = root.right
         return root
-            
+        #======
+        #recent approach
+        if not root: return None
+        p_val, q_val = sorted([p.val, q.val])
+        # print("\n p val is "+str(p.val) + " q val is "+ str(q.val))
+        # print("\n root val is "+str(root.val) )
+        if p_val <= root.val <= q_val:
+            return root
+        elif p_val > root.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        elif q_val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        return None
             
             
         
