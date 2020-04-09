@@ -1,3 +1,18 @@
+#======sort the intervals, then compare adjacent pairs, cause if A[0] not overlap with A[1], it cannot overlap with A[2]..3 4 5
+class Solution(object):
+    def canAttendMeetings(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: bool
+        """
+        def isOverlap(a, b):
+            return not (a[0] >= b[1] or a[1] <= b[0])
+        intervals.sort(key = lambda x: x[0])
+        for i in xrange(len(intervals)-1):
+            if isOverlap(intervals[i], intervals[i+1]):
+                return False
+        return True
+#=========
 # Definition for an interval.
 # class Interval(object):
 #     def __init__(self, s=0, e=0):
