@@ -1,3 +1,30 @@
+# recursive way, append new node to height level list, if height isn't enough, append another level
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def findLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        def height(node, ans):
+            if not node: return -1
+            h = 1 + max(height(node.left, ans), height(node.right, ans))
+            if len(ans) < h +1: ans.append([node.val])
+            else:
+                ans[h].append(node.val)
+            return h
+
+        ans = []
+        height(root, ans)
+        return ans
+    
+#==============
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
