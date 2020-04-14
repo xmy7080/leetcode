@@ -1,3 +1,53 @@
+#a more pythonic way, and it takes any square number matrix===
+#from chime onsite
+class Solution(object):
+    def checkValidPart(self, lt):
+        #PR reviews: make lth as a global variable
+        lth = len(lt)
+        dic = collections.defaultdict(int)
+        for n in lt:
+            if n.isdigit():
+                digit = int(n) 
+            else: continue
+            if digit in range(1, lth+1):
+                dic[digit] += 1
+            else:
+                return False
+        for i in dic:
+            if dic[i] != 1:
+                return False
+        return True
+    
+    def isValidSudoku(self, matrix):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        
+        #lth will be always square numbers
+        lth = len(matrix)
+        boxL = int(math.sqrt(lth))
+        #check rows and cols first
+        for i in xrange(lth):
+            if not self.checkValidPart(matrix[i]):
+                return False
+        
+        for j in xrange(lth):
+            cols = [row[j] for row in matrix]
+            if not self.checkValidPart(cols):
+                return False
+        
+        #check boxes
+        for i in xrange(0,lth-boxL+1,boxL):
+            rows = matrix[i: i+boxL]
+            for j in xrange(0, lth-boxL+1, boxL):
+                #box is what we need to check
+                box = [row[j:j+boxL] for row in rows ]
+                listBox = [y for row in box for y in row]
+                if not self.checkValidPart(listBox):
+                    return False
+        return True
+#=====
 class Solution(object):
     def isValidSudoku(self, board):
         """
