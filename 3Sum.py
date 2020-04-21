@@ -1,3 +1,25 @@
+#hashset way of doing 2 sum on each go of pivet number
+#also dedupe the result by saving 3-elements tuples in result set
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        ans = set()
+        for i in xrange(len(nums)):
+            target = -1 * nums[i]
+            s = set()
+            for j in xrange(i+1, len(nums)):
+                if target - nums[j] in s:
+                    tmp = [nums[i], target - nums[j], nums[j]]
+                    tmp.sort()
+                    ans.add((tmp[0], tmp[1], tmp[2]))
+                else:
+                    s.add(nums[j])
+        return [ triplet for triplet in ans]
+    
+#sort the list and do two pointers approach on each go of pivet number
 class Solution(object):
     def threeSum(self, nums):
         """
