@@ -1,3 +1,22 @@
+#starting from 0 and plus
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        if not n: return [""]
+        ans = []
+        def helper(tmp, left, right):
+            if len(tmp) == 2 * n:
+                ans.append(tmp)
+            if left < n:
+                helper(tmp + '(', left + 1, right)
+            if right < left:
+                helper(tmp + ')', left, right + 1)
+        helper("", 0, 0)
+        return ans
+# starting from n and minus
 class Solution(object):
     def generateParenthesis(self, n):
         """
