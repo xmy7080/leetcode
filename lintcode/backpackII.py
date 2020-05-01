@@ -17,7 +17,8 @@ def knapSack(W, wt, val, n):
   
     return K[n][W]
 
-#jiuzhang solution
+#jiuzhang solution, will be faster a bit, cause we do check if we are able to put exact size m in backpack
+#all impossible sizes we put -1 as a sentinel number. so we need to have a extra go in the bottom to get the answer
 class Solution:
     """
     @param m: An integer m denotes the size of a backpack
