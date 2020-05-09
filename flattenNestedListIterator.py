@@ -1,5 +1,6 @@
 #Idea is, first flatten the nested list, then iterate like a plain array.
-
+#this is the first solution, there are also solution using stack and others
+#https://leetcode.com/articles/flatten-nested-iterator/
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
         def flatten(nested):
