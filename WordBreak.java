@@ -1,3 +1,25 @@
+//python solution
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        if not s or not wordDict:
+            return False
+        lth = len(s)
+        dic = set(wordDict)
+        shortest, longest = min([len(w) for w in wordDict]), max([len(w) for w in wordDict])
+        # print(str(shortest))
+        # print(str(longest))
+        can = [True] + [False] * lth
+        for i in range(1, lth+1):
+            j = max(i - longest, 0)
+            while j <= i - shortest:
+                if s[j:i] in dic and can[j]:
+                    can[i] = True
+                    break
+                j += 1
+        # print(can)
+        return can[lth]
+        
+
 public class Solution {
     public boolean wordBreak(String s, Set<String> wordDict) {
         boolean[] isword = new boolean[s.length()+1];
