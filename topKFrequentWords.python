@@ -1,0 +1,21 @@
+#insipred by this approach
+#https://leetcode.com/problems/top-k-frequent-words/discuss/108348/Python-3-solution-with-O(nlogk)-and-O(n)/177954
+#pay attention because 'a' is supposed to be ahead of 'aa' and 'aaa', hence we have padding to the max len of a word
+#word + ' '*(max_len - len(word))
+from heapq import heappush, heappop
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        counts = collections.Counter(words)
+        # for word in words:
+        #     counts[word] += 1
+        max_len = len(max(counts.keys(), key = len))
+        h = []
+        for word, count in counts.items():
+            reverseWord = tuple([-ord(c) for c in list(word + ' '*(max_len - len(word)) )])
+            heappush(h, (count, reverseWord, word))
+            if len(h) > k:
+                heappop(h)
+        ans = []
+        for i in range(k):
+            ans.append(heappop(h)[2])
+        return ans[::-1]
