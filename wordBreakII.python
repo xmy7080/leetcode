@@ -1,0 +1,20 @@
+#inspired by the word break i, basically we keep track of all the words we use in the dictionary, only save the index, and map them into words
+#at the return line.
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        if not s or not wordDict:
+            return []
+        if not set(Counter(s).keys()).issubset(set(Counter("".join(wordDict)).keys())):
+            return []
+        combines = collections.defaultdict(list)
+        combines[0] = [[]]
+        lth = len(s)
+        dic = dict([(word, idx) for idx, word in enumerate(wordDict)])
+        shortest, longest = len(min(wordDict, key = len)), len(max(wordDict, key = len))
+        for i in range(1, lth+1):
+            j = max(i - longest, 0)
+            while j <= i - shortest:
+                if s[j:i] in dic and combines[j]:
+                    combines[i] += [ele + [dic[s[j:i]]] for ele in combines[j] ]
+                j += 1
+        return map(lambda lst: ' '.join(map(lambda idx: wordDict[idx], lst)) , combines[lth])
