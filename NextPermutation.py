@@ -1,3 +1,33 @@
+#a bit easier solution of reusing swap logic. also we put logic: finding the first number on the right bigger than 4
+#out of the helper function
+#check here https://leetcode.com/articles/next-permutation/
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        def swap(nums, a, b) -> None:
+            tmp = nums[a]
+            nums[a] = nums[b]
+            nums[b] = tmp
+        
+        def reverse(nums, a) -> None:
+            l, r = a, len(nums)-1
+            while l < r:
+                swap(nums, l, r)
+                l += 1
+                r -= 1
+        i = len(nums)-2
+        while i >= 0 and nums[i+1] <= nums[i]:
+            i -= 1
+        if i >= 0:
+            j = len(nums)-1
+            while j>i and nums[j] <= nums[i]:
+                j -= 1
+            swap(nums, i, j)
+        reverse(nums, i+1)
+        
+#=============
 class Solution(object):
     def nextPermutation(self, nums):
         """
