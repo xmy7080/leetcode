@@ -1,3 +1,24 @@
+#way easier solution to reason about and implement
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        if not intervals:
+            return [newInterval]
+        insS, insE = newInterval[0], newInterval[1]
+        ends, starts = [itv[1] for itv in intervals], [itv[0] for itv in intervals]
+        #for example like [[1,2],[3,5],[6,7],[8,10],[12,16]] and [4,8]
+        #idea is to find [3,5] and [8, 10] as first end larger than 4, and last start that smaller than 8, then remove all intervals in between, form a new merged interval
+        
+        #find [3,5]
+        l = bisect.bisect_left(ends, insS)
+        
+        #find [8,10], for -1 explain, see https://www.geeksforgeeks.org/bisect-algorithm-functions-in-python/
+        r = bisect.bisect(starts, insE) -1
+        
+        #check if l, r is inbound
+        newS = min(intervals[l][0], insS) if l < len(intervals) else insS
+        newE = max(intervals[r][1], insE) if r >= 0 else insE
+        return intervals[:l] + [[newS, newE]] + intervals[r+1:]
+
 # Definition for an interval.
 # class Interval(object):
 #     def __init__(self, s=0, e=0):
