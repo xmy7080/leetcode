@@ -22,14 +22,15 @@ class Codec:
             s += self.serialize(root.right)
         return s
     
-    def buildstring(self,node,s):
-        if not node:
-            s += "null,"
-        else:
-            s += str(node.val) + ","
-            self.buildstring(node.left,s)
-            self.buildstring(node.right,s)
-        return s
+    #this is un used.
+#     def buildstring(self,node,s):
+#         if not node:
+#             s += "null,"
+#         else:
+#             s += str(node.val) + ","
+#             self.buildstring(node.left,s)
+#             self.buildstring(node.right,s)
+#         return s
         
 
     def deserialize(self, data):
