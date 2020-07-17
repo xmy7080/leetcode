@@ -15,13 +15,15 @@ class Solution:
         has1 = False
         for i in range(m):
             l, r = 0, leftMost1Idx
-            while l < r:
+            while l <= r:
                 mid = (l + r)//2
                 if binaryMatrix.get(i, mid): # if 1
-                    r = mid
+                    if mid >0 and not binaryMatrix.get(i, mid-1): #if 1 step left is 0
+                        break
+                    r = mid -1
                 else: # if 0
                     l = mid + 1
-            if binaryMatrix.get(i, l): # if 1, then [i,mid] is the left most 1 in this row
+            if binaryMatrix.get(i, mid): # if 1, then [i,mid] is the left most 1 in this row
                 has1 = True
-                leftMost1Idx = l
+                leftMost1Idx = mid
         return leftMost1Idx if has1 else -1
