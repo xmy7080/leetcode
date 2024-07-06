@@ -5,6 +5,8 @@ class Solution {
             times.add(Pair(itv[0], 1))
             times.add(Pair(itv[1], -1))
         }
+        // sortedBy + one field
+        // sortedWith + multiple fields
         val countable = times.sortedWith(compareBy ({it.first}, {it.second}))
         var rooms = 0
         var result = 0
