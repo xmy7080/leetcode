@@ -23,12 +23,12 @@ class Solution {
         while (queue.isNotEmpty()){
             // println("steps " + steps + " queue " + queue.toList().joinToString(","))
             for (i in queue.size downTo 1){
-                val citySpent = queue.removeFirst()
-                val currCity = citySpent[0]
-                val distance = citySpent[1]
+                val currCityEntry = queue.removeFirst()
+                val currCity = currCityEntry[0]
+                val currSpent = currCityEntry[1]
                 val possibleNextMove = dmap[currCity]?: hashMapOf<Int, Int>()
                 for (nextHop in possibleNextMove.entries.iterator()) {
-                    val newSpent = distance + nextHop.value
+                    val newSpent = currSpent + nextHop.value
 
                     // println("from " + currCity + " spent " + spent[currCity]!! +" to " +nextHop.key + " spent " + nextHop.value)
                     if (nextHop.key !in spent || newSpent < spent[nextHop.key]?: 0) {
