@@ -1,3 +1,37 @@
+//another kotlin way inherited from basic calculator i
+class Solution {
+    fun calculate(s: String): Long {
+        val stk = ArrayDeque<Long>()
+        var accu = 0L
+        var sign = '+'
+        var number = 0L
+        println("s last index will read " + s[s.lastIndex]) // in kotlin, lastIndex is 0-based
+        for(c in s){
+            when (c){
+                ' ' -> continue
+                '+','-','*','/' -> {
+                    when(sign) {
+                        '+' -> stk.addFirst(number)
+                        '-' -> stk.addFirst(-1 * number)
+                        '*' -> stk.addFirst(stk.removeFirst() * number)
+                        '/' -> stk.addFirst(stk.removeFirst() / number)
+                    }
+                    number = 0L
+                    sign = c
+                }
+                else -> number = number * 10 + (c - '0')
+            }
+        }
+        when(sign) { //process the last number when string ends
+            '+' -> stk.addFirst(number)
+            '-' -> stk.addFirst(-1 * number)
+            '*' -> stk.addFirst(stk.removeFirst() * number)
+            '/' -> stk.addFirst(stk.removeFirst() / number)
+        }
+        return stk.sum()
+    }
+}
+
 // kotlin way of my original python solution
 // https://leetcode.com/problems/basic-calculator-ii/solutions/3465561/kotlin-way/
 class Solution {
