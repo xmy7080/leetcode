@@ -1,5 +1,43 @@
 // solution from the editorial
 // https://leetcode.com/problems/basic-calculator-iii/
+// september 12 work, pretty much the same. Also inherited from calculator II
+class Solution {
+    fun calculate(s: String): Int {
+        val stk = ArrayDeque<String>()
+        var accu = 0
+        var sign = '+'
+        var number = 0
+        val str = s + "@"
+        for (c in str){
+            if (c.isDigit()) {
+                number = number * 10 + (c - '0')
+            } else if (c == '('){
+                // stk.addFirst(number.toString())
+                stk.addFirst(sign.toString())
+                sign = '+'
+            } else {
+                when (sign) {
+                    '+' -> stk.addFirst( number.toString())
+                    '-' -> stk.addFirst( (-1 * number).toString())
+                    '*' -> stk.addFirst( (stk.removeFirst().toInt() * number).toString() )
+                    '/' -> stk.addFirst( (stk.removeFirst().toInt() / number).toString() )
+                }
+                number = 0
+                sign = c
+                if (c == ')') {
+                    while (stk.first() !in listOf("+", "-", "*", "/")){
+                        number += stk.removeFirst().toInt()
+                    }
+                    sign = stk.removeFirst().single()
+                }
+            }
+        }
+        // println("stk is " + stk.joinToString(","))
+        return stk.map{it.toInt()}.sum()
+    }
+}
+
+//=======
 class Solution {
     fun calculate(s: String): Int {
         val stk = ArrayDeque<String>()
