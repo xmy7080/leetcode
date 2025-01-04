@@ -12,6 +12,9 @@
 // we need one origin node and one current node for the smaller and the bigger tree head respectively, when instantiate we set all of them null, 
 // for small node scenario, we traverse down its right subtree because there could be node bigger than target, for bigger node scenario we traverse its left subtree because there could node smaller than the target
 // for exact node value, we can stop with node + node.left to the smaller tree, and entire node.right to the bigger tree.
+
+// detail can refer to editorial solution III
+//https://leetcode.com/problems/split-bst/editorial/
 class Solution {
     fun splitBST(originRoot: TreeNode?, target: Int): Array<TreeNode?> {
         var biggerTree: TreeNode? = null
