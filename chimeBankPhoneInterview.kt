@@ -17,7 +17,21 @@ class Solution {
     val customers = hashMapOf<String, Customer>()
     fun validateCardNumber(cardNumber: String): Boolean{
         if(cardNumber.length !in 12 .. 16) return false
-        return !cardNumber.map{it.isDigit()}.any{it == false}
+        return !cardNumber.map{it.isDigit()}.any{it == false} && checkLuhn(cardNumber)
+    }
+    fun checkLuhn(cardNumber: String): Boolean{
+        var isSecond = false
+        var total = 0
+        for(i in cardNumber.length -1 downTo 0){
+            var num = cardNumber[i].toInt() - '0'.toInt()
+            // println("char is " + cardNumber[i] + " num is " + num)
+            if(isSecond) num *= 2
+            total += num / 10
+            total += num % 10
+            isSecond = !isSecond
+        }
+        println("luhn number for card " + cardNumber + " is " +total)
+        return total % 10 == 0
     }
     fun stringToMoney(dollarAmount: String): Money{
         val currency = dollarAmount[0].toString()
