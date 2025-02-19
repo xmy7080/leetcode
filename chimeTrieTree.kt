@@ -17,13 +17,39 @@ class Trie() {
         }
         node.isWord = true
     }
-
-    val keyMap: Map<Char,String> = mapOf('2' to "abc", '3' to "def", '4' to "ghi", '5' to "jkl", '6' to "mno", '7' to "pqrs", '8' to "tuv", '9' to "wxyz" )
-    //searchByNumber should return list of strings
+// actual chime interview question, word break II with trie combined solution
     fun search(dummy: String): Boolean{
         // val number = "4663" // ["good"],["home"],["hood"]
         // val number = "2277" //["cars"],["bars"],["caps"]
-        val number = "2523" //["clad"]
+        val number = "76638463" //["some"],["time"],["rome"],["sometime"],["so"],["me"]
+        val res = mutableListOf<List<String>>()
+        val tmp = mutableListOf<String>()
+        fun dfs(index: Int){
+            if(index == number.length){
+                res.add(tmp.toList())
+            } else{
+                for(i in index + 1 .. number.length){
+                    val subStr = number.substring(index, i)
+                    for(matchWord in fetchPossibleWords(subStr)){
+                        tmp.add(matchWord)
+                        dfs(i)
+                        tmp.removeAt(tmp.size - 1)
+                    }
+                }
+            }
+            return
+        }
+        dfs(0)
+        res.forEach{
+            println(" " + it.joinToString(","))
+        }
+
+        return false
+    }
+    
+    val keyMap: Map<Char,String> = mapOf('2' to "abc", '3' to "def", '4' to "ghi", '5' to "jkl", '6' to "mno", '7' to "pqrs", '8' to "tuv", '9' to "wxyz" )
+    //fetchPossibleWords should return list of strings
+    fun fetchPossibleWords(number: String): List<String>{
         val res = mutableListOf<String>()
         fun dfs(tmp: StringBuilder, root: TrieNode, index: Int) {
             var node = root
@@ -44,12 +70,11 @@ class Trie() {
             return
         }
         dfs(StringBuilder(""), root, 0)
-        println("results are " + res.joinToString(","))
-        return false
+        return res
     }
 
 
-// original search
+// original leetcode search function solution
     // fun search(word: String): Boolean {
     //     var node = root
     //     for (c in word){
