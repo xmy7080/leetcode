@@ -1,3 +1,6 @@
+// question from leetcode
+//https://leetcode.com/discuss/interview-question/1912135/chimebank-phone-interview
+// and in the phone interview I was actually asked this exact question
 data class Money(
     var amount: Int,
     val currency: String
