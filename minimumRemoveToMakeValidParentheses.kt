@@ -1,3 +1,16 @@
+// this solution is using the kotlin buildString function. 
+//buildString in Kotlin is an inline function that provides an efficient way to construct strings using a StringBuilder. 
+//It takes a lambda expression as an argument, within which you can append or manipulate the string. The function then returns the final constructed string. 
+//
+//fun buildString(builderAction: (StringBuilder) -> Unit): String
+
+/*
+val result = buildString {
+    append("Hello, ")
+    append("World!")
+}
+println(result) // Output: Hello, World!
+*/
 class Solution {
     fun minRemoveToMakeValid(s: String)= buildString {
         var stk = mutableListOf<Int>()
