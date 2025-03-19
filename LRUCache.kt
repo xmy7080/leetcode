@@ -49,6 +49,11 @@ class LRUCache(val capacity: Int) {
             lastNode = node.left!!
         }
 
+        // these two steps are necessary, not because garbage collection reason, but because we don't want dangling reference to its old neighbors.
+        // for example, in line 15 16, 
+        //    delete(node!!)
+        //  append(node!!)
+        // commenting out below will make the node.right keeps pointing to its old neighbors. as in append there are no update to the nodes.right pointer
         node.left = null
         node.right = null
     }
