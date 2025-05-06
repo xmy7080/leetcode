@@ -18,7 +18,7 @@ class Solution {
                 }
                 else if(nums[mid-1] == target) {
                     r = mid - 1
-                    res[0] = mid - 1
+                    // res[0] = mid - 1
                     }
             }
         }
@@ -39,7 +39,7 @@ class Solution {
                 }
                 else if(nums[mid+1] == target) {
                     l = mid + 1
-                    res[1] = mid + 1
+                    // res[1] = mid + 1
                 }
             }
         }
