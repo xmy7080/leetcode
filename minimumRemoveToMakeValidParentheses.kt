@@ -1,3 +1,24 @@
+// a more understandable solution without the lambda build string
+class Solution {
+    fun minRemoveToMakeValid(s: String): String {
+        val sb = StringBuilder("")
+        val stk = Stack<Int>()
+        for(i in 0 until s.length){
+            when (s[i]){
+                '(' -> stk.push(sb.length)
+                ')' -> if(stk.isNotEmpty()) stk.pop()
+                    else continue
+            }
+            sb.append(s[i])
+        }
+        // println("sb is ${sb.toString()}")
+        stk.reversed().forEach{
+            sb.deleteAt(it)
+        }
+        return sb.toString()
+    }
+}
+
 // this solution is using the kotlin buildString function. 
 //buildString in Kotlin is an inline function that provides an efficient way to construct strings using a StringBuilder. 
 //It takes a lambda expression as an argument, within which you can append or manipulate the string. The function then returns the final constructed string. 
