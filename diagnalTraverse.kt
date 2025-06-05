@@ -5,17 +5,17 @@ class Solution {
 
         var flip = false
         val res = mutableListOf<Int>()
-        for(row in 0 until m + n){
+        for(row in 0 until m + n -1){ // for example , m=3, n=3, the row will only traverse from 0 to 4
             var x = 0
             var y = 0
             when{
-                row < m -> {
-                    x = row
-                    y = 0
+                row < m -> { // when starts from the left most column
+                    x = row // x starts from the row from 0 to m-1
+                    y = 0 // y starts at first col
                 }
-                else -> {
-                    x = m - 1
-                    y = row - m + 1
+                else -> { // when starts from the bottom row
+                    x = m - 1 // x starts from bottom row
+                    y = row - m + 1 // y starts from the column from 1 to n-1
                 }
             }
             val tmp = mutableListOf<Int>()
