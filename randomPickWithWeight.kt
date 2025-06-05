@@ -1,7 +1,7 @@
 class Solution(w: IntArray) {
     val tree = TreeMap<Int, Int>()
     var sum = 0
-    val rand = Random(5)
+    val rand = Random(5) // Creates a Random object with seed 5. this serve as a pseudo-random generator
     init {
         for (i in 0 until w.size) {
             tree.put(sum, i)
