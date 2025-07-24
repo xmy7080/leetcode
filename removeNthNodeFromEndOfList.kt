@@ -12,6 +12,8 @@ class Solution {
         if(head == null ) return head
         if(head?.next == null && n == 1) return null
         var curr = head
+        // we need this count to be n+1, because we want to have curr == null when the prev point to 
+        // the previous of the node to be deleted
         var count = n +1
         while(curr != null && count > 0){
             curr = curr?.next
@@ -29,6 +31,7 @@ class Solution {
                 prev = prev?.next
             }
         }
+        // this is the when prev points to the previous of the node to be deleted
         val toRemove = prev?.next
         prev?.next = toRemove?.next
         toRemove?.next = null
