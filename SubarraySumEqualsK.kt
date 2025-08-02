@@ -1,4 +1,4 @@
-// map contains disctinct array sum from beginning to its appearances, say we got [1,-1,1], then (0 -> 2) because 1 + (-1) = 0 and empty list = 0
+// map contains disctinct array sum from beginning to its appearances, say we got [1,-1,1], then (0 -> 2, 1 ->2) because 1 + (-1) = 0 and empty list = 0, 1 = 1 and 1+(-1)+1=1
 class Solution {
     fun subarraySum(nums: IntArray, k: Int): Int {
         var arrSumDic = mutableMapOf<Int, Int>(0 to 1)
