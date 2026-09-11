@@ -4,9 +4,7 @@ class Solution(object):
         :type num: int
         :rtype: List[int]
         """
-        res = [0]
-        tmp = num
-        while tmp>0:
-            res.extend([x+1 for x in res])
-            tmp  = tmp >>1
-        return res[:num+1]
+        ans = [0] * (num +1)
+        for i in xrange(num+1):
+            ans[i] = ans[i>>1] + i%2
+        return ans
